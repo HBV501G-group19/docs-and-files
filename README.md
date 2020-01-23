@@ -5,9 +5,6 @@ This doc attempts to explain what the API accepts and responds with.
 ### /users/
 The first two are the only endpoints that don't require authentication.
 
-Note: Authentication/authorization wasn't added until after the 3rd. 
-If you cloned it before or use an older commit there is no authentication enabled so you don't need to worry about it.
-
 #### /users/register - POST
 This endpoint only accepts POST requests. It's used to create a new user on the database.
 Sending this:
