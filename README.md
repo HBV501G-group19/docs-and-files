@@ -167,7 +167,7 @@ Responds with the created route
 }
 ```
 
-#### /ors/geoname
+#### /ors/geoname - POST
 Returns a geojson `feature` with interesting properties(mainly name information) a point very close to the provided point.
 *This isn't very useful, probably don't have to use this at all since getting the name of the endpoints is handled when rides are created/directions are requested...*
 ```
@@ -177,7 +177,7 @@ Returns a geojson `feature` with interesting properties(mainly name information)
 }
 ```
 
-#### /ors/directions
+#### /ors/directions - POST
 Gets directions between 2 points
 ```
 {
@@ -195,7 +195,7 @@ Gets directions between 2 points
 }
 ```
 
-#### /ors/geocode
+#### /ors/geocode - POST
 Returns points of interest relating to the search string. `focus` is a point that ORS will focus the search around(it will return results that are at most within a 1000km radius).
 
 ```
