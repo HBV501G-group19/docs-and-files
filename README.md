@@ -167,6 +167,8 @@ Responds with the created route
 }
 ```
 
+### /ors/
+
 #### /ors/geoname - POST
 Returns a geojson `feature` with interesting properties(mainly name information) a point very close to the provided point.
 *This isn't very useful, probably don't have to use this at all since getting the name of the endpoints is handled when rides are created/directions are requested...*
