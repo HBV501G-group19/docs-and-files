@@ -1,4 +1,4 @@
-# docs-and-files
+# documentation
 
 This doc attempts to explain what the API accepts and responds with.
 
@@ -22,7 +22,6 @@ The server will respond with the created user entity:
 {
   "id": #id,
   "username": "unique_user",
-  "password": "hashed version that should be marked transient :^)"
 }
 ```
 #### /users/authenticate - POST
@@ -113,12 +112,12 @@ Needs to have the following properties:
 
 > `seats: integer`
 
-> `passengers: A json array with user ids. Cannot contain the driver's id`
+> `passengers(optional): A json array with user ids. Cannot contain the driver's id`
 
 ```
 {
 	"driver_id":2,
-	"passengers": [],
+	"passengers": [3, 1, 5],
 	"departure_time": "2019-10-25 20:45:00",
 	"duration": 50,
 	"seats": 1,
@@ -151,30 +150,15 @@ Responds with the created route
     "upTimestampd": "2019-11-07T15:50:37.433+0000",
     "origin": {
         "type": "Point",
-        "coordinates": [
-            -21.94695,
-            64.140015
-        ]
+	...
     },
     "destination": {
         "type": "Point",
-        "coordinates": [
-            -21.724842,
-            64.164932
-        ]
+	...
     },
     "route": {
         "type": "LineString",
-        "coordinates": [
-            [
-                -21.94695,
-                64.140015
-            ],
-            [
-                -21.724842,
-                64.164932
-            ]
-        ]
+	...
     },
     "departureTime": "2019-10-25T20:45:00.000+0000",
     "duration": 50,
@@ -183,4 +167,44 @@ Responds with the created route
 }
 ```
 
+#### /ors/geoname
+Returns a geojson `feature` with interesting properties(mainly name information) a point very close to the provided point.
+*This isn't very useful, probably don't have to use this at all since getting the name of the endpoints is handled when rides are created/directions are requested...*
+```
+{
+    "coordinates": [double, double],
+    "properties": {... gets passed to the returned feature...}
+}
+```
+
+#### /ors/directions
+Gets directions between 2 points
+```
+{
+    "origin": {
+        "type": "Point",
+	...
+    },
+    "destination": {
+        "type": "Point",
+	...
+    },
+    "properties": {
+    	"profile": "foot-walking"|"driving-car"
+    }
+}
+```
+
+#### /ors/geocode
+Returns points of interest relating to the search string. `focus` is a point that ORS will focus the search around(it will return results that are at most within a 1000km radius).
+
+```
+{
+   "focus": {
+   	"type": "Point",
+	...
+   },
+   "geocode": "string to search with"
+}
+```
 
