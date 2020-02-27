@@ -101,19 +101,21 @@ Needs to have the following properties:
 
 > `duration: integer`
 
-> `origin: A geojson 2d point`,
+> `origin: A geojson 2d point`
 
-> `destination: A geojson 2d point`,
+> `destination: A geojson 2d point`
 
 > `route: A geojson linestring`
 
 > `seats: integer`
 
-> `passengers(optional): A json array with user ids. Cannot contain the driver's id`
+> `passengers(optional): long[]`
+>
+> An array of user ids
 
 ```
 {
-	"driver_id":2,
+	"driver":2,
 	"passengers": [3, 1, 5],
 	"departure_time": "2019-10-25 20:45:00",
 	"duration": 50,
@@ -164,6 +166,22 @@ Responds with the created route
 }
 ```
 
+#### /rides/convenient - POST
+Searches for rides that approximately fit the parameters
+> `origin: A geojson 2d point`
+
+> `destination: A geojson 2d point`
+
+> `departure_time: YYYY-MM-DD HH:mm:ss ISO-formatted string`
+
+> `range: double[]`
+>
+> Acceptible walking time from origin and destination
+```
+
+```
+
+
 ### /ors/
 
 #### /ors/geoname - POST
@@ -177,7 +195,8 @@ Returns a geojson `feature` with interesting properties(mainly name information)
 ```
 
 #### /ors/directions - POST
-Gets directions between 2 points
+Gets directions between a list of pairs of `Point`s.
+Accepts an array of objects with the following shape:
 ```
 {
     "origin": {
@@ -193,9 +212,12 @@ Gets directions between 2 points
     }
 }
 ```
+For example, getting end-to-end directions with walking to and from a aride, as well as the ride itself needs a list like `[walk-to-ride-origin, ride, walk-from-ride-destination]`.
+
+Returns an array of `FeatureCollection`s. Each `FeatureCollection` has geonaming information about the origin and destination points, as well as the corresponding linestring with the directions.
 
 #### /ors/geocode - POST
-Returns points of interest relating to the search string. `focus` is a point that ORS will focus the search around(it will return results that are at most within a 1000km radius).
+Returns points of interest relating to the search string in a `FeatureCollection`. `focus` is a point that ORS will focus the search around(it will return results that are at most within a 1000km radius of `focus`).
 
 ```
 {
@@ -207,3 +229,51 @@ Returns points of interest relating to the search string. `focus` is a point tha
 }
 ```
 
+### /messages/
+#### /messages/create - POST
+> `sender: long`
+> `recipient: long`
+> `ride: long`
+> `body: String`
+
+Returns the created message(convo id is a complete hack hehe)
+```
+{
+	"id": 1,
+	"body": "hello",
+	"recipient": 1,
+	"sender": 2,
+	"ride": 2,
+	"conversationId": -981530759,
+	"recipientName": "gunnar",
+	"senderName": "ekkigunnar"
+}
+```
+
+#### /messages/{id} - GET
+Returns a single message
+```
+{
+    "id": 1,
+    "body": "hello",
+    "recipient": 1,
+    "sender": 2,
+    "ride": 2,
+    "conversationId": -981530759,
+    "recipientName": "gunnar",
+    "senderName": "ekkigunnar"
+}
+```
+#### /messages/conversation - POST
+Use this to find a conversation if you don't know the id, but know the users and ride ids
+> `recipientId: long`
+> `senderId: long`
+> `rideId: long`
+
+Returns an array with all messages that fit
+
+#### /messages/conversation/{id} - GET
+Use this if you know the conversation id
+
+#### /messages/user/{id} - GET
+Returns all of users conversations
