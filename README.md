@@ -96,19 +96,19 @@ Responds with the ride corresponding to the id.
 Stores a ride into the database.
 Needs to have the following properties:
 > `driver: id of the user that is driving`
-
+>
 > `departure_time: YYYY-MM-DD HH:mm:ss ISO-formatted string`
-
+>
 > `duration: integer`
-
+>
 > `origin: A geojson 2d point`
-
+>
 > `destination: A geojson 2d point`
-
+>
 > `route: A geojson linestring`
-
+>
 > `seats: integer`
-
+>
 > `passengers(optional): long[]`
 >
 > An array of user ids
@@ -169,11 +169,11 @@ Responds with the created route
 #### /rides/convenient - POST
 Searches for rides that approximately fit the parameters
 > `origin: A geojson 2d point`
-
+>
 > `destination: A geojson 2d point`
-
+>
 > `departure_time: YYYY-MM-DD HH:mm:ss ISO-formatted string`
-
+>
 > `range: double[]`
 >
 > Acceptible walking time from origin and destination
@@ -229,9 +229,9 @@ Returns points of interest relating to the search string in a `FeatureCollection
 > `sender: long`
 
 > `recipient: long`
-
+>
 > `ride: long`
-
+>
 > `body: String`
 
 Returns the created message(convo id is a complete hack hehe)
@@ -265,9 +265,9 @@ Returns a single message
 #### /messages/conversation - POST
 Use this to find a conversation if you don't know the id, but know the users and ride ids
 > `recipientId: long`
-
+>
 > `senderId: long`
-
+>
 > `rideId: long`
 
 Returns an array with all messages that fit
