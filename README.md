@@ -227,7 +227,7 @@ Returns points of interest relating to the search string in a `FeatureCollection
 ### /messages/
 #### /messages/create - POST
 > `sender: long`
-
+>
 > `recipient: long`
 >
 > `ride: long`
