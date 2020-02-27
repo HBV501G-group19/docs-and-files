@@ -177,13 +177,8 @@ Searches for rides that approximately fit the parameters
 > `range: double[]`
 >
 > Acceptible walking time from origin and destination
-```
-
-```
-
 
 ### /ors/
-
 #### /ors/geoname - POST
 Returns a geojson `feature` with interesting properties(mainly name information) a point very close to the provided point.
 *This isn't very useful, probably don't have to use this at all since getting the name of the endpoints is handled when rides are created/directions are requested...*
@@ -232,8 +227,11 @@ Returns points of interest relating to the search string in a `FeatureCollection
 ### /messages/
 #### /messages/create - POST
 > `sender: long`
+
 > `recipient: long`
+
 > `ride: long`
+
 > `body: String`
 
 Returns the created message(convo id is a complete hack hehe)
@@ -267,7 +265,9 @@ Returns a single message
 #### /messages/conversation - POST
 Use this to find a conversation if you don't know the id, but know the users and ride ids
 > `recipientId: long`
+
 > `senderId: long`
+
 > `rideId: long`
 
 Returns an array with all messages that fit
